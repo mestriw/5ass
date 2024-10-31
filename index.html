@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 5 - Tasks 1 to 11</title>
+    <style>
+        .task { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- Task 1 -->
+    <div class="task">
+        <p>Task 1: Find nearest and farthest from 100</p>
+        <button onclick="task1()">Calculate</button>
+        <p>Nearest: <span id="nearestTo100">0</span></p>
+        <p>Farthest: <span id="farthestFrom100">0</span></p>
+    </div>
+
+    <script>
+        function task1() {
+            let numbers = [
+                parseFloat(prompt("Enter first number:")),
+                parseFloat(prompt("Enter second number:")),
+                parseFloat(prompt("Enter third number:"))
+            ];
+            let nearest = numbers.reduce((prev, curr) => Math.abs(curr - 100) < Math.abs(prev - 100) ? curr : prev);
+            let farthest = numbers.reduce((prev, curr) => Math.abs(curr - 100) > Math.abs(prev - 100) ? curr : prev);
+            document.getElementById("nearestTo100").textContent = nearest;
+            document.getElementById("farthestFrom100").textContent = farthest;
+        }
+    </script>
+
+    <!-- Task 2 -->
+    <div class="task">
+        <p>Task 2: Alphabetize Words</p>
+        <input type="text" id="alphabetInput" placeholder="Enter words">
+        <button onclick="alphabetize()">Sort</button>
+        <p>Sorted: <span id="sortedWords"></span></p>
+    </div>
+
+    <script>
+        function alphabetize() {
+            let words = document.getElementById("alphabetInput").value.split(" ");
+            let sorted = words.map(word => word.split('').sort().join('')).join(' ');
+            document.getElementById("sortedWords").textContent = sorted;
+        }
+    </script>
+
+    <!-- Task 3 -->
+    <div class="task">
+        <p>Task 3: First Non-Repeated Character</p>
+        <input type="text" id="nonRepeatInput" placeholder="Enter text">
+        <button onclick="firstNonRepeat()">Find</button>
+        <p>First non-repeated character: <span id="firstNonRepeated"></span></p>
+    </div>
+
+    <script>
+        function firstNonRepeat() {
+            let str = document.getElementById("nonRepeatInput").value;
+            let result = [...str].find(char => str.indexOf(char) === str.lastIndexOf(char));
+            document.getElementById("firstNonRepeated").textContent = result || "None";
+        }
+    </script>
+
+    <!-- Task 4 -->
+    <div class="task">
+        <p>Task 4: Replace each character with next alphabet character</p>
+        <input type="text" id="shiftInput" placeholder="Enter text">
+        <button onclick="shiftAlphabet()">Replace</button>
+    </div>
+
+    <script>
+        function shiftAlphabet() {
+            let str = document.getElementById("shiftInput").value;
+            let result = str.replace(/[a-zA-Z]/g, char => String.fromCharCode(char.charCodeAt(0) + 1));
+            alert("Shifted Text: " + result);
+        }
+    </script>
+
+    <!-- Task 5 -->
+    <div class="task">
+        <p>Task 5: Longest and Shortest Word</p>
+        <button onclick="task5()">Find</button>
+        <p>Longest word: <span id="longestWord"></span></p>
+        <p>Shortest word: <span id="shortestWord"></span></p>
+    </div>
+
+    <script>
+        function task5() {
+            let words = [
+                prompt("Enter first word:"),
+                prompt("Enter second word:"),
+                prompt("Enter third word:")
+            ];
+            let longest = words.reduce((a, b) => a.length >= b.length ? a : b);
+            let shortest = words.reduce((a, b) => a.length <= b.length ? a : b);
+            document.getElementById("longestWord").textContent = longest;
+            document.getElementById("shortestWord").textContent = shortest;
+        }
+    </script>
+
+    <!-- Task 6 -->
+    <div class="task">
+        <p>Task 6: Highlight Words in Paragraph (over 7 chars in blue, less than 3 in bold)</p>
+        <p id="paragraph6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a lorem auctor, aliquet nulla ac, sodales eros.</p>
+        <button onclick="highlightWords()">Highlight</button>
+    </div>
+
+    <script>
+        function highlightWords() {
+            const paragraph = document.getElementById("paragraph6");
+            const words = paragraph.innerText.split(" ");
+            paragraph.innerHTML = words.map(word => 
+                word.length > 7 ? `<span style="background-color: blue;">${word}</span>` : 
+                word.length < 3 ? `<b>${word}</b>` : word
+            ).join(" ");
+        }
+    </script>
+
+    <!-- Task 7 -->
+    <div class="task">
+        <p>Task 7: Replace '?' with '*' and '!' with '@' in a paragraph</p>
+        <p id="paragraph7">What is going on? Are you excited!</p>
+        <button onclick="replaceSymbols()">Replace</button>
+    </div>
+
+    <script>
+        function replaceSymbols() {
+            const paragraph = document.getElementById("paragraph7");
+            paragraph.innerHTML = paragraph.innerHTML.replace(/\?/g, "*").replace(/!/g, "@");
+        }
+    </script>
+
+    <!-- Task 8 -->
+    <div class="task">
+        <p>Task 8: Split Sentences onto New Lines</p>
+        <p id="paragraph8">This is a sentence. Here’s another! Is this the third?</p>
+        <button onclick="splitSentences()">Split</button>
+    </div>
+
+    <script>
+        function splitSentences() {
+            const paragraph = document.getElementById("paragraph8");
+            paragraph.innerHTML = paragraph.innerText.split(/(?<=[.?!])\s+/).join("<br>");
+        }
+    </script>
+
+    <!-- Task 9 -->
+    <div class="task">
+        <p>Task 9: Count Words in Paragraph</p>
+        <p id="paragraph9">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <button onclick="countWords()">Count</button>
+    </div>
+
+    <script>
+        function countWords() {
+            const paragraph = document.getElementById("paragraph9").innerText;
+            alert("Word Count: " + paragraph.split(" ").length);
+        }
+    </script>
+
+    <!-- Task 10 -->
+    <div class="task">
+        <p>Task 10: Highlight Words Starting with 'A' in Italics and Ending with 'Y' Underlined</p>
+        <p id="paragraph10">Amazingly, he accepted an apology very gracefully.</p>
+        <button onclick="highlightWords10()">Highlight</button>
+    </div>
+
+    <script>
+        function highlightWords10() {
+            const paragraph = document.getElementById("paragraph10");
+            const words = paragraph.innerText.split(" ");
+            paragraph.innerHTML = words.map(word => {
+                if (word.startsWith("A") || word.startsWith("a")) word = `<i>${word}</i>`;
+                if (word.endsWith("y") || word.endsWith("Y")) word = `<u>${word}</u>`;
+                return word;
+            }).join(" ");
+        }
+    </script>
+
+    <!-- Task 11 -->
+    <div class="task">
+        <p>Task 11: Calculate the Volume of a Sphere (V = 4/3 π r³)</p>
+        <label for="radiusSphere">Radius:</label>
+        <input type="number" id="radiusSphere" step="0.01">
+        <button onclick="calculateSphereVolume()">Calculate</button>
+        <p>Volume: <span id="volumeSphere">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculateSphereVolume() {
+            const r = parseFloat(document.getElementById("radiusSphere").value);
+            const volume = (4 / 3) * Math.PI * Math.pow(r, 3);
+            document.getElementById("volumeSphere").textContent = volume.toFixed(4);
+        }
+    </script>
+
+
+    <!-- Task 11: Volume of a Sphere -->
+    <div class="task">
+        <p>Task 11: Calculate the volume of a sphere (V = 4/3 π r³)</p>
+        <label for="radiusSphere">Radius:</label>
+        <input type="number" id="radiusSphere" step="0.01">
+        <button onclick="calculateSphereVolume()">Calculate</button>
+        <p>Volume: <span id="volumeSphere">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculateSphereVolume() {
+            const r = parseFloat(document.getElementById("radiusSphere").value);
+            const volume = (4 / 3) * Math.PI * Math.pow(r, 3);
+            document.getElementById("volumeSphere").textContent = volume.toFixed(4);
+        }
+    </script>
+
+    <!-- Task 12: Volume of a Cylinder -->
+    <div class="task">
+        <p>Task 12: Calculate the volume of a cylinder (V = π r² h)</p>
+        <label for="radiusCylinder">Radius:</label>
+        <input type="number" id="radiusCylinder" step="0.01">
+        <label for="heightCylinder">Height:</label>
+        <input type="number" id="heightCylinder" step="0.01">
+        <button onclick="calculateCylinderVolume()">Calculate</button>
+        <p>Volume: <span id="volumeCylinder">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculateCylinderVolume() {
+            const r = parseFloat(document.getElementById("radiusCylinder").value);
+            const h = parseFloat(document.getElementById("heightCylinder").value);
+            const volume = Math.PI * Math.pow(r, 2) * h;
+            document.getElementById("volumeCylinder").textContent = volume.toFixed(4);
+        }
+    </script>
+
+    <!-- Task 13: Volume of a Cone -->
+    <div class="task">
+        <p>Task 13: Calculate the volume of a cone (V = 1/3 π r² h)</p>
+        <label for="radiusCone">Radius:</label>
+        <input type="number" id="radiusCone" step="0.01">
+        <label for="heightCone">Height:</label>
+        <input type="number" id="heightCone" step="0.01">
+        <button onclick="calculateConeVolume()">Calculate</button>
+        <p>Volume: <span id="volumeCone">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculateConeVolume() {
+            const r = parseFloat(document.getElementById("radiusCone").value);
+            const h = parseFloat(document.getElementById("heightCone").value);
+            const volume = (1 / 3) * Math.PI * Math.pow(r, 2) * h;
+            document.getElementById("volumeCone").textContent = volume.toFixed(4);
+        }
+    </script>
+
+    <!-- Task 14: Volume of a Prism -->
+    <div class="task">
+        <p>Task 14: Calculate the volume of a prism (V = B * h, where B = a * b)</p>
+        <label for="baseLengthPrism">Base Length (a):</label>
+        <input type="number" id="baseLengthPrism" step="0.01">
+        <label for="baseWidthPrism">Base Width (b):</label>
+        <input type="number" id="baseWidthPrism" step="0.01">
+        <label for="heightPrism">Height:</label>
+        <input type="number" id="heightPrism" step="0.01">
+        <button onclick="calculatePrismVolume()">Calculate</button>
+        <p>Volume: <span id="volumePrism">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculatePrismVolume() {
+            const a = parseFloat(document.getElementById("baseLengthPrism").value);
+            const b = parseFloat(document.getElementById("baseWidthPrism").value);
+            const h = parseFloat(document.getElementById("heightPrism").value);
+            const volume = a * b * h;
+            document.getElementById("volumePrism").textContent = volume.toFixed(4);
+        }
+    </script>
+
+    <!-- Task 15: Area of a Triangle -->
+    <div class="task">
+        <p>Task 15: Calculate the area of a triangle (S = ½ * b * h)</p>
+        <label for="baseTriangle">Base:</label>
+        <input type="number" id="baseTriangle" step="0.01">
+        <label for="heightTriangle">Height:</label>
+        <input type="number" id="heightTriangle" step="0.01">
+        <button onclick="calculateTriangleArea()">Calculate</button>
+        <p>Area: <span id="areaTriangle">0.0000</span></p>
+    </div>
+
+    <script>
+        function calculateTriangleArea() {
+            const b = parseFloat(document.getElementById("baseTriangle").value);
+            const h = parseFloat(document.getElementById("heightTriangle").value);
+            const area = 0.5 * b * h;
+            document.getElementById("areaTriangle").textContent = area.toFixed(4);
+        }
+    </script>
+
+    <!-- Task 16: Sliding Push Sidebar -->
+    <div class="task">
+        <p>Task 16: Sliding Push Sidebar</p>
+        <button onclick="toggleSidebar()">Toggle Sidebar</button>
+        <div id="sidebar" style="width: 0; transition: 0.5s; background-color: lightgray; height: 100%; position: fixed; top: 0; left: 0; overflow-x: hidden;">
+            <a href="javascript:void(0)" onclick="toggleSidebar()">Close</a>
+            <p>Sidebar content</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.style.width = sidebar.style.width === "0px" ? "250px" : "0px";
+        }
+    </script>
+
+    <!-- Task 17: Mini Calendar -->
+    <div class="task">
+        <p>Task 17: Mini Calendar</p>
+        <button onclick="displayCalendar()">Show Calendar</button>
+        <div id="calendar"></div>
+    </div>
+
+    <script>
+        function displayCalendar() {
+            const date = new Date();
+            document.getElementById("calendar").innerHTML = `<p>Today is ${date.toDateString()}</p>`;
+        }
+    </script>
+
+    <!-- Task 18: Drag and Drop -->
+    <div class="task">
+        <p>Task 18: Drag and Drop</p>
+        <div id="dragContainer" style="width: 200px; height: 200px; border: 1px solid black;" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>Drop Here</p>
+        </div>
+        <div id="dragElement" draggable="true" ondragstart="drag(event)" style="width: 100px; height: 100px; background-color: lightblue;">Drag me</div>
+    </div>
+
+    <script>
+        function allowDrop(event) { event.preventDefault(); }
+        function drag(event) { event.dataTransfer.setData("text", event.target.id); }
+        function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            event.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+    <!-- Task 19: Rock, Paper, Scissors Game -->
+    <div class="task">
+        <p>Task 19: Rock, Paper, Scissors</p>
+        <button onclick="playGame('Rock')">Rock</button>
+        <button onclick="playGame('Paper')">Paper</button>
+        <button onclick="playGame('Scissors')">Scissors</button>
+        <p>Result: <span id="gameResult"></span></p>
+    </div>
+
+    <script>
+        function playGame(playerChoice) {
+            const choices = ["Rock", "Paper", "Scissors"];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = `Computer chose ${computerChoice}. `;
+            if (playerChoice === computerChoice) result += "It's a tie!";
+            else if (
+                (playerChoice === "Rock" && computerChoice === "Scissors") ||
+                (playerChoice === "Paper" && computerChoice === "Rock") ||
+                (playerChoice === "Scissors" && computerChoice === "Paper")
+            ) result += "You win!";
+            else result += "You lose!";
+            document.getElementById("gameResult").textContent = result;
+        }
+    </script>
+
+    <!-- Task 20: Digital Clock -->
+    <div class="task">
+        <p>Task 20: Digital Clock</p>
+        <p id="clock">00:00:00</p>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
